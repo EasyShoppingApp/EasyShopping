@@ -1,0 +1,15 @@
+	.wrapper {
+		width: 960px;
+		margin: 0 auto;
+		background: #ccc;
+	}
+	canvas {
+		outline: 1px solid black;
+		margin:50px;
+	}
+	button {
+		display: block;
+		width: 200px;
+		height: 30px;
+		background: coral;
+	}
