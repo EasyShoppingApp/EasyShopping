@@ -19,8 +19,11 @@ import java.io.IOException;
 @ServerEndpoint(value="/events/")
 public class EventSocket
 {
+    private Session session;
+
     @OnOpen
     public void onWebSocketConnect(Session sess) {
+        session = sess;
         System.out.println("Socket Connected: " + sess);
     }
 
@@ -28,16 +31,18 @@ public class EventSocket
     public void onWebSocketText(String message) throws JSONException, IOException, EncodeException {
         JSONObject jsonObject = new JSONObject(message);
         String action = jsonObject.getString("action");
-        JSONObject object = jsonObject.getJSONObject("object");
         switch (action) {
             case "delete":
-                EventsHelper.delete(object);
+                EventsHelper.delete(jsonObject.getJSONObject("object"));
                 break;
             case "add":
-                EventsHelper.add(object);
+                EventsHelper.add(jsonObject.getJSONObject("object"));
                 break;
             case "toggle":
-                EventsHelper.delete(object);
+                EventsHelper.toggle(jsonObject.getJSONObject("object"));
+                break;
+            case "list":
+                EventsHelper.list(session);
                 break;
         }
         System.out.println("Received TEXT message: " + message);
