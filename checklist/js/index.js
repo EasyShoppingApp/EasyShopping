@@ -33,7 +33,7 @@ function CheckListCtrl($scope) {
 	}
   };
   
-    $scope.clearCompleted = function () {
+    $scope.removeItem = function () {
         $scope.checkList = _.filter($scope.checkList, function(item){
             return !item.done;
         });
