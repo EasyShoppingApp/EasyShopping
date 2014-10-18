@@ -19,7 +19,8 @@ public class Main {
         ResourceHandler resource_handler = new ResourceHandler();
         resource_handler.setDirectoriesListed(true);
         resource_handler.setWelcomeFiles(new String[]{"index.html"});
-        resource_handler.setResourceBase("./resources");
+        //resource_handler.setResourceBase("./resources");
+        resource_handler.setResourceBase("C:\\Users\\joycollector\\IdeaProjects\\ShopTrip\\src\\web");
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[]{resource_handler, new ShoptripHandler(), new DefaultHandler()});
         server.setHandler(handlers);
