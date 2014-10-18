@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>CheckList</title>
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+</head>
+
+<body>
+
+  <html ng-app>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <!--script src="//use.edgefonts.net/vast-shadow:n4:all.js"></script>
+    <script src="//use.edgefonts.net/vast-shadow:n4:all;megrim.js"></script-->
+	<script src="/js/fonts/all.js"></script>
+    <script src="js/fonts/megrim.js"></script>
+  </head>
+  <body>
+    <div class="item-wrapper" ng-controller="CheckListCtrl">
+      <h2 class="counter">You've got <span class="emphasis">{{getTotalCheckList()}}</span> things to buy</h2>
+      <ul>
+        <li ng-repeat="item in checkList">
+          <input type="checkbox" ng-model="item.done" bg-click="getTotalCheckList()" />
+          <span class="done-{{item.done}}">{{item.text}}</span>
+        </li>
+      </ul>
+      <form>
+        <input class="add-input" placeholder="I need..." type="text" ng-model="formItemText" ng-model-instant />
+        <button class="add-btn" ng-click="addItem()"><h2>Add</h2></button>
+      </form>
+
+      <button class="clear-btn" ng-click="removeItem()">Remove</button>
+    </div>
+  </body>
+
+</html>
+
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js'></script>
+
+  <script src="js/index.js"></script>
+
+</body>
+
+</html>
