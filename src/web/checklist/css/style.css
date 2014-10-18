@@ -11,7 +11,7 @@ h2 {
   font-size: 2em;
   font-family: megrim, fantasy;
   background: #1CA89C;
-  padding: 40px;
+  height: 120px;
   margin: 0;
   color: #333;
   text-align: center;
@@ -30,7 +30,7 @@ ul {
 li {
   font-family: megrim, fantasy;
   font-size: 2em;
-  padding: 40px;
+  /*padding: 40px;*/
   background: #65d8cb;
   /* Old browsers */
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#65d8cb), to(#72f4e9));
@@ -94,7 +94,7 @@ li input[type="checkbox"] {
   border: none;
   background: #29F4E3;
   padding: 0;
-  height: 100px;
+  /*height: 100px;*/
 }
 
 .remove-btn h2 {

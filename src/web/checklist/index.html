@@ -8,19 +8,21 @@
   <title>CheckList</title>
 
   <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
 
 </head>
 
 <body>
 
-  <html ng-app>
+  <html ng-app="shopTrip">
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <!--script src="//use.edgefonts.net/vast-shadow:n4:all.js"></script>
     <script src="//use.edgefonts.net/vast-shadow:n4:all;megrim.js"></script-->
-	<script src="js/fonts/all.js"></script>
+	  <script src="js/fonts/all.js"></script>
     <script src="js/fonts/megrim.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </head>
   <body>
     <div class="item-wrapper" ng-controller="CheckListCtrl">
@@ -28,16 +30,24 @@
 	  <h2 ng-show="getTotalCheckList() == 0">Your checklist complete</h2>
 	  <h2 ng-show="getTotalCheckList() == null">Start new checklist</h2>
       <ul>
-        <li ng-repeat="item in checkList">
-          <input type="checkbox" ng-model="item.done" bg-click="getTotalCheckList()" />
+        <li ng-repeat="item in checkList" style="padding: 20px">
+          <span class="glyphicon" ng-class="{true:'glyphicon-check', false:'glyphicon-unchecked'}[item.done]" style="height: 32px; float: left; padding: 5px;" ng-click="toggleItem($index)"></span>
           <span class="done-{{item.done}}">{{item.text}}</span>
-		  <button class="remove-btn" ng-click="removeItem($index)"><h2>Remove</h2></button>		  
+          <span class="glyphicon glyphicon-remove" style="float: right; padding: 5px;" ng-click="removeItem($index)"></span>
+        </li>
+        <li>
+          <div style="width: 100%; background-color: #ffffff; height: 80px;">
+            <input class="add-input" placeholder="I need..." type="text" ng-model="formItemText" ng-model-instant ng-enter="addItem()" style="font-size: 1em;"/>
+            <span class="glyphicon glyphicon-plus" style="float: right; margin: 20px; padding: 5px;" ng-click="addItem()"></span>
+          </div>
         </li>
       </ul>
-      <form>
-        <input class="add-input" placeholder="I need..." type="text" ng-model="formItemText" ng-model-instant />
-        <button class="add-btn" ng-click="addItem()"><h2>Add</h2></button>
-      </form>
+      <!--<form>
+        <div style="width: 100%; background-color: #ffffff; height: 80px;">
+          <input class="add-input" placeholder="I need..." type="text" ng-model="formItemText" ng-model-instant />
+          <span class="glyphicon glyphicon-plus" style="float: right; padding: 5px; font-size: 28px" ng-click="addItem()"></span>
+        </div>
+      </form>-->
 
       <button class="clear-btn" ng-click="removeItem()" ng-show="getTotalCheckList() > 0">Remove</button>
     </div>
