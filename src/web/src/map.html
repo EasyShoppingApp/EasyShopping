@@ -1,0 +1,48 @@
+<!doctype html>
+<html class="no-js" ng-app="shoptrip">
+  <head>
+    <meta charset="utf-8">
+    <title>frontend</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css({.tmp,src}) styles/vendor.css -->
+    <link rel="stylesheet" href="app/main/vendor.css">
+
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css({.tmp,src}) styles/main.css -->
+    <link rel="stylesheet" href="app/main/main.css">
+    <link rel="stylesheet" href="components/map/style.css">
+    <!-- endbuild -->
+
+    
+    <script type="text/javascript" src="components/map/jquery.js"></script>
+    
+    <!-- build:js scripts/modernizr.js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+
+    
+    <!-- endbuild -->
+
+  </head>
+  <body onload="CanvasBuild()">
+    
+    <div ng-include="'components/map/index.html'"></div>
+    <div ng-include="'components/checklist/index.html'"></div>
+    
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    
+    <script src="app/shoptrip.js"></script>
+    <script src="app/main/main.controller.js"></script>
+    <script src="components/navbar/navbar.controller.js"></script>
+
+    <script type="text/javascript" src="components/map/list.js"></script>
+    <script type="text/javascript" src="components/map/map_canvas.js"></script>
+
+  </body>
+</html>
