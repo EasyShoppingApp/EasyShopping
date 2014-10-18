@@ -1,5 +1,7 @@
 package by.shoptrip;
 
+import by.shoptrip.db.DBHelper;
+import by.shoptrip.db.DBManager;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.websocket.jsr356.server.ServerContainer;
 import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
@@ -21,25 +23,27 @@ import java.util.Set;
 public class EventsHelper {
 
     private static ServerContainer wscontainer;
+    private static DBManager dbManager;
 
     public static void delete(JSONObject object) throws IOException, EncodeException {
-        JSONObject deletedObject = null;
+        JSONObject deletedObject = dbManager.delete(object);
         EventsHelper.sendObjectToAllOpenSockets(deletedObject);
     }
 
     public static void add(JSONObject object) throws IOException, EncodeException {
-        JSONObject addedObject = null;
+        JSONObject addedObject = dbManager.add(object);
         EventsHelper.sendObjectToAllOpenSockets(object);
     }
 
     public static void toggle(JSONObject object) throws IOException, EncodeException {
-        JSONObject modifiedObject = null;
+        JSONObject modifiedObject = dbManager.toggle(object);
         EventsHelper.sendObjectToAllOpenSockets(modifiedObject);
     }
 
     public static void initialize(ServletContextHandler context) throws DeploymentException {
         wscontainer = WebSocketServerContainerInitializer.configureContext(context);
         wscontainer.addEndpoint(EventSocket.class);
+        dbManager = DBHelper.getManager();
     }
 
     public static void sendObjectToAllOpenSockets(JSONObject object) throws IOException, EncodeException {
