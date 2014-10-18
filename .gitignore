@@ -40,3 +40,9 @@
 .idea/libraries/Maven__org_ow2_asm_asm_commons_5_0_1.xml
 .idea/libraries/Maven__org_ow2_asm_asm_tree_5_0_1.xml
 target/maven-archiver/pom.properties
+
+src/web/node_modules
+src/web/dist
+src/web/.tmp
+src/web/.sass-cache
+src/web/src/bower_components
