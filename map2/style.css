@@ -1,0 +1,83 @@
+	body {
+		background-image: url(../../bgi.jpg);
+		padding: 0;
+		margin: 0;
+	}
+	.wrapper {
+		width: 960px;
+		margin: 0 auto;
+		background: #fff;
+	}
+	header {
+		height: 100px;
+		background: #BBE2A9;
+		border-bottom: 3px solid #5B814A;
+	}
+	#canvas {
+		height: 376px;
+		width: 606px;
+		/*outline: 1px solid #444;*/
+		background-image: url(map.gif);
+		position: relative;
+		margin-top: 30px;
+		margin-left: 30px;
+	}
+	canvas {
+		/*outline: 1px solid black;
+		margin:50px;*/
+	}
+	button {
+		display: block;
+		width: 200px;
+		height: 30px;
+		background: coral;
+	}
+	[id^=circle_] {
+		height: 13px;
+		width: 13px;
+		border-radius: 50%;
+		border: 2px solid darkred;
+		background: red;
+		color: #fff;
+		position: absolute;
+		text-align: center;
+		vertical-align: middle;
+		font-size: 13px;
+		font-family: Arial;
+		cursor: pointer;
+		display: none;
+
+	}
+	#tip {
+		width: 100px;
+		height: 100px;
+		background: #fff;
+		border: 1px solid #614949;
+		position: absolute;
+		z-index: 99;
+		display: none;
+	}
+	#close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		background: #ccc;
+		cursor: pointer;
+		font-family: Arial;
+		width: 18px;
+		text-align: center;
+	}
+	#info {
+		font-family: Arial;
+		display: table-cell;
+		text-align: center;
+		vertical-align: middle;
+		width: 100%;
+	}
+	#info p {
+		width: 100px;
+		display: table-cell;
+		text-align: center;
+		vertical-align: middle;
+		height: 100px;
+	}
