@@ -5,7 +5,8 @@
     "modernizr": "2.8.x",
     "angular": "1.2.x",
     "modernizr" : "2.8.x",
-    "bootstrap-sass-official" : "3.2.x"
+    "bootstrap-sass-official" : "3.2.x",
+    "requirejs": "2.1.x"
   },
   "devDependencies": {
     "angular-mocks": "1.2.x"
