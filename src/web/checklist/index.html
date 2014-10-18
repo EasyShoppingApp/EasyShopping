@@ -30,8 +30,8 @@
 	  <h2 ng-show="getTotalCheckList() == 0">Your checklist complete</h2>
 	  <h2 ng-show="getTotalCheckList() == null">Start new checklist</h2>
       <ul>
-        <li ng-repeat="item in checkList" style="padding: 20px">
-          <span class="glyphicon" ng-class="{true:'glyphicon-check', false:'glyphicon-unchecked'}[item.done]" style="height: 32px; float: left; padding: 5px;" ng-click="toggleItem($index)"></span>
+        <li ng-repeat="item in checkList" style="padding: 20px" ng-click="toggleItem($index)">
+          <span class="glyphicon" ng-class="{true:'glyphicon-check', false:'glyphicon-unchecked'}[item.done]" style="height: 32px; float: left; padding: 5px;"></span>
           <span class="done-{{item.done}}">{{item.text}}</span>
           <span class="glyphicon glyphicon-remove" style="float: right; padding: 5px;" ng-click="removeItem($index)"></span>
         </li>
@@ -42,13 +42,6 @@
           </div>
         </li>
       </ul>
-      <!--<form>
-        <div style="width: 100%; background-color: #ffffff; height: 80px;">
-          <input class="add-input" placeholder="I need..." type="text" ng-model="formItemText" ng-model-instant />
-          <span class="glyphicon glyphicon-plus" style="float: right; padding: 5px; font-size: 28px" ng-click="addItem()"></span>
-        </div>
-      </form>-->
-
       <button class="clear-btn" ng-click="removeItem()" ng-show="getTotalCheckList() > 0">Remove</button>
     </div>
   </body>
