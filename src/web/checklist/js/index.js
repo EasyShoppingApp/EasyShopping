@@ -14,9 +14,15 @@ function CheckListCtrl($scope) {
 	
 	if( count > 0)
 		return count;
-	else
+		
+	else if($scope.checkList.length > 0)
 	{
-		return 0; //TODO 18-Oct-2014: make counter say "Your checklist complete"; in case if count = 0
+		return 0;
+	}
+	
+	else
+	{	
+		return null;
 	}
   };
   
@@ -33,9 +39,17 @@ function CheckListCtrl($scope) {
 	}
   };
   
-    $scope.removeItem = function () {
-        $scope.checkList = _.filter($scope.checkList, function(item){
-            return !item.done;
-        });
+    $scope.removeItem = function (index) {
+		if(index === 'underfined')
+		{
+			$scope.checkList = _.filter($scope.checkList, function(item){
+				return !item.done;
+			});
+		}
+		
+		else
+		{
+			$scope.checkList.splice(index, 1);
+		}		
     };
 }

@@ -88,3 +88,19 @@ li input[type="checkbox"] {
   font-family: megrim, fantasy;
   color: #aaa;
 }
+
+.remove-btn {
+  width: 15%;
+  border: none;
+  background: #29F4E3;
+  padding: 0;
+  height: 100px;
+}
+
+.remove-btn h2 {
+  background: #29F4E3;
+  padding: 0;
+  font-size: 4em;
+  font-family: megrim, fantasy;
+  color: #333;
+}
