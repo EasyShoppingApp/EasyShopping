@@ -36,7 +36,7 @@ public class MongoDBManager extends AbstractDBManager {
             while(curs.hasNext()) {
                 DBObject o = curs.next();
                 JSONObject obj = new JSONObject(String.format("%s", o).toString());
-
+                listOfObjects.add(obj);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
