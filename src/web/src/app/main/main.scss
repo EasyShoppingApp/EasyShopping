@@ -1,1 +1,23 @@
+$assetPath : "/assets/images";
+
+body {
+	background-image:  url(#{$assetPath}/bgi.jpg);
+	padding: 0;
+	margin: 0;
+}
+
+header {
+	height: 100px;
+	background: #BBE2A9;
+	border-bottom: 3px solid #5B814A;
+	margin-bottom: 10px;
+}
+
+.logo{
+	background-image: url(#{$assetPath}/logo.png);
+	width: 300px;
+	height: 100px;
+}
+
 @import "../../components/map/style";
+@import "../../components/checklist/css/style";

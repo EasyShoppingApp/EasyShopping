@@ -1,35 +1,13 @@
-$assetPath : "/assets/images";
-
-body {
-	background-image:  url(#{$assetPath}/bgi.jpg);
-	padding: 0;
-	margin: 0;
-}
-
-header {
-	height: 100px;
-	background: #BBE2A9;
-	border-bottom: 3px solid #5B814A;
-}
-
 .wrapper {
-	width: 960px;
+	/*width: 960px;*/
 	margin: 0 auto;
-	background: #fff;
-
-	.logo{
-		background-image: url(#{$assetPath}/logo.png);
-		width: 300px;
-		height: 100px;
-	}
+	/*background: #fff;*/
 
 	#canvas {
 		height: 376px;
 		width: 606px;
 		position: relative;
-		margin-top: 30px;
-		margin-left: 30px;
-
+		
 		.canvas-img{
 			background-image: url(#{$assetPath}/map.gif);
 			width:606px;
