@@ -9,7 +9,6 @@ import java.io.IOException;
  */
 public class DBHelper {
     public static DBManager getManager() {
-        //return new MongoDBManager();
-        return new MockDBManager();
+        return new MongoDBManager();
     }
 }
