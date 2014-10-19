@@ -14,38 +14,55 @@ angular.module('shoptrip').directive('ngEnter', function () {
 });
 
 angular.module('shoptrip')
-  .controller('CheckListCtrl', ['$scope', function ($scope){
-    $scope.checkList = [
-      {text: 'Cucumber', done: false},
-      {text: 'Beer', done: false}
-    ];
+.controller('CheckListCtrl', ['$scope', 'require', function ($scope, require){
+  // console.log(require);
+  
+  $scope.checkList = [
+  {text: 'Cucumber', done: false},
+  {text: 'Beer', done: false}
+  ];
 
-    $scope.getTotalCheckList = function () {
-      var count = 0;
-      $scope.checkList.forEach(function (i) {
-        if (!i.done)
-          count++;
+  $scope.getTotalCheckList = function () {
+    var count = 0;
+    $scope.checkList.forEach(function (i) {
+      if (!i.done)
+        count++;
+    });
+
+    if (count > 0)
+      return count;
+
+    else if ($scope.checkList.length > 0) {
+      return 0;
+    }
+
+    else {
+      return null;
+    }
+  };
+
+  var callback = function(imgUrl){
+      require(["map"], function(module){
+        module.AddPoint(
+          Math.floor(Math.random() * 90), 
+          Math.floor(Math.random() * 90),
+          imgUrl);
+      });
+  }
+
+  $scope.addItem = function () {
+    if ($scope.formItemText) {
+      $scope.checkList.push({text: $scope.formItemText, done: false});
+      
+      var textToSearch = $scope.formItemText;
+
+      require(["imageApi"], function(imageApi){
+        imageApi.AddToBody(textToSearch, 0, callback);
       });
 
-      if (count > 0)
-        return count;
-
-      else if ($scope.checkList.length > 0) {
-        return 0;
-      }
-
-      else {
-        return null;
-      }
-    };
-
-
-    $scope.addItem = function () {
-      if ($scope.formItemText) {
-        $scope.checkList.push({text: $scope.formItemText, done: false});
-        $scope.formItemText = '';
-      }
-      else {
+      $scope.formItemText = '';
+    }
+    else {
         //TODO 18-Oct-2014: show popup saying e.g "Please type your item name"
       }
     };
@@ -66,4 +83,4 @@ angular.module('shoptrip')
       $scope.checkList[index].done = !$scope.checkList[index].done;
     };
 
-}]);
+  }]);

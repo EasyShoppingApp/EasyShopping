@@ -1,7 +1,35 @@
 'use strict';
 
+angular.module('shoptrip').factory(
+  "require",
+  function( $rootScope ) {
+    function requireProxy( dependencies, successCallback, errorCallback ) {
+
+      successCallback = ( successCallback || angular.noop );
+      errorCallback = ( errorCallback || angular.noop );
+
+      require((dependencies || [] ),
+        function successCallbackProxy() {
+           var args = arguments;
+           $rootScope.$apply(
+              function() {
+                successCallback.apply( this, args );
+            });
+       },
+       function errorCallbackProxy() {
+        var args = arguments;
+        $rootScope.$apply(
+          function() {
+            errorCallback.apply( this, args );
+        });
+    });
+  }
+  return( requireProxy );
+});
+
+
 angular.module('shoptrip')
-  .controller('MainCtrl', function ($scope) {
+.controller('MainCtrl', function ($scope) {
     // $scope.awesomeThings = [
     //   {
     //     'key': 'angular',
@@ -63,4 +91,4 @@ angular.module('shoptrip')
     // angular.forEach($scope.awesomeThings, function(awesomeThing) {
     //   awesomeThing.rank = Math.random();
     // });
-  });
+});
