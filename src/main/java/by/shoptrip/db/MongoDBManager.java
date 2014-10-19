@@ -49,6 +49,7 @@ public class MongoDBManager extends AbstractDBManager {
         try {
             DBCollection lists = getCollection(CONTENTS_COLLECTION);
             DBObject objectToRemove = (DBObject) JSON.parse(object.toString());
+
             WriteResult writeResult = lists.remove(objectToRemove);
             if (writeResult.getN() == 0) {
              // return null;
@@ -62,12 +63,14 @@ public class MongoDBManager extends AbstractDBManager {
 
     @Override
     public JSONObject add(JSONObject object) {
+        JSONObject obj = object;
         try {
             //add random x and y
             generateRandomXY(object);
             DBCollection lists = getCollection(CONTENTS_COLLECTION);
             DBObject objectToAdd = (DBObject) JSON.parse(object.toString());
             WriteResult writeResult = lists.insert(objectToAdd);
+            obj = new JSONObject(String.format("%s", objectToAdd).toString());
             if (writeResult.getN() == 0) {
                // return null;
             }
@@ -75,15 +78,16 @@ public class MongoDBManager extends AbstractDBManager {
             e.printStackTrace();
             return null;
         }
-        return object;
+        return obj;
     }
 
     @Override
     public JSONObject toggle(JSONObject object) {
            try {
             DBCollection lists = getCollection(CONTENTS_COLLECTION);
-            DBObject objectToAdd = (DBObject) JSON.parse(object.toString());
-            WriteResult writeResult = lists.insert(objectToAdd);
+            DBObject objectToUpdate = (DBObject) JSON.parse(object.toString());
+            BasicDBObject searchQuery = new BasicDBObject().append("_id", objectToUpdate.get("_id"));
+            WriteResult writeResult = lists.update(searchQuery, objectToUpdate);
             if (writeResult.getN() == 0) {
              //   return null;
             }
