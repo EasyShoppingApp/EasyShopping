@@ -2,10 +2,12 @@ package by.shoptrip.db;
 
 import com.mongodb.*;
 import com.mongodb.util.JSON;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * User: Aliaksei Chynayeu
@@ -13,7 +15,7 @@ import java.util.List;
  */
 public class MongoDBManager extends AbstractDBManager {
 
-    private static String LIST_COLLECTION = "lists";
+    private static String CONTENTS_COLLECTION = "contents";
 
     public MongoDBManager(){
         init();
@@ -29,12 +31,12 @@ public class MongoDBManager extends AbstractDBManager {
 
           List<JSONObject> listOfObjects = new ArrayList<JSONObject>();
         try {
-            DBCollection lists = getCollection(LIST_COLLECTION);
+            DBCollection lists = getCollection(CONTENTS_COLLECTION);
             DBCursor curs = lists.find();
             while(curs.hasNext()) {
                 DBObject o = curs.next();
                 JSONObject obj = new JSONObject(String.format("%s", o).toString());
-
+                listOfObjects.add(obj);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -44,30 +46,61 @@ public class MongoDBManager extends AbstractDBManager {
 
     @Override
     public JSONObject delete(JSONObject object) {
-        DB db = null;
-        JSONObject result = new JSONObject();
         try {
-            DBCollection lists = db.getCollection("lists");
+            DBCollection lists = getCollection(CONTENTS_COLLECTION);
             DBObject objectToRemove = (DBObject) JSON.parse(object.toString());
+
             WriteResult writeResult = lists.remove(objectToRemove);
             if (writeResult.getN() == 0) {
-              result.put("error","unable to delete");
+             // return null;
             }
-            result.put("action", "delete");
-            result.put("object", object);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return result;
+        return object;
     }
 
     @Override
     public JSONObject add(JSONObject object) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        JSONObject obj = object;
+        try {
+            //add random x and y
+            generateRandomXY(object);
+            DBCollection lists = getCollection(CONTENTS_COLLECTION);
+            DBObject objectToAdd = (DBObject) JSON.parse(object.toString());
+            WriteResult writeResult = lists.insert(objectToAdd);
+            obj = new JSONObject(String.format("%s", objectToAdd).toString());
+            if (writeResult.getN() == 0) {
+               // return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return obj;
     }
 
     @Override
     public JSONObject toggle(JSONObject object) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+           try {
+            DBCollection lists = getCollection(CONTENTS_COLLECTION);
+            DBObject objectToUpdate = (DBObject) JSON.parse(object.toString());
+            BasicDBObject searchQuery = new BasicDBObject().append("_id", objectToUpdate.get("_id"));
+            WriteResult writeResult = lists.update(searchQuery, objectToUpdate);
+            if (writeResult.getN() == 0) {
+             //   return null;
+            }
+          } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return object;
+    }
+
+    private static void generateRandomXY(JSONObject object) throws JSONException {
+        Random rand = new Random();
+        object.put("x", rand.nextInt(76) + 5);
+        object.put("y", rand.nextInt(76) + 5);
     }
 }

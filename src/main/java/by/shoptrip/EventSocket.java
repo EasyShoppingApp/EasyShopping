@@ -33,13 +33,17 @@ public class EventSocket
         String action = jsonObject.getString("action");
         switch (action) {
             case "delete":
-                EventsHelper.delete(jsonObject.getJSONObject("object"));
+                JSONObject delobject = jsonObject.getJSONObject("object");
+                delobject.remove("$$hashKey");
+                EventsHelper.delete(delobject);
                 break;
             case "add":
                 EventsHelper.add(jsonObject.getJSONObject("object"));
                 break;
             case "toggle":
-                EventsHelper.toggle(jsonObject.getJSONObject("object"));
+                JSONObject togobject = jsonObject.getJSONObject("object");
+                togobject.remove("$$hashKey");
+                EventsHelper.toggle(togobject);
                 break;
             case "list":
                 EventsHelper.list(session);
