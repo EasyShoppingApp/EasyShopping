@@ -16,10 +16,9 @@ shoptripApp.filter('getById', function() {
 
 shoptripApp.run(['$rootScope', function($rootScope){
     $rootScope.createWS = function() {
-        var socket = new WebSocket("ws://localhost:8080/app/events/");
+        var socket = new WebSocket("ws://10.168.0.216:8080/app/events/");
         socket.onopen = function () {
             console.log("Соединение открылось");
-            this.list();
         };
         socket.onclose = function () {
             console.log("Соединение закрылось");
@@ -55,5 +54,3 @@ shoptripApp.run(['$rootScope', function($rootScope){
 }]);
 
 var globalsocket = null;
-
-createWS();
