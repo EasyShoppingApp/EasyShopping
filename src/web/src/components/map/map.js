@@ -55,20 +55,30 @@ define([],
                 ],
                 "orderCompleted": true
             };*/
+            function DeletePoint(item) {
+                $("img[id='" + item._id.$oid + "']").remove();
+            }
 
-            function AddPoint(x, y, imgUrl, productName) {
+            function TogglePoint(item) {
+                var opacity = item.done ? 0.5: 1;
+                $("img[id='" + item._id.$oid + "']").css({opacity: opacity});
+            }
 
-                var img = $("<img/>");
-                img[0].src = imgUrl;
 
+            function AddPoint(item) {
+
+                var img = $("<img id='" + item._id.$oid + "'/>");
+                img[0].src = item.imgUrl;
+                var opacity = item.done ? 0.5: 1;
                 $(img).css({
                     width: elms.iconWidth + "px",
-                    top: x * elms.Ykoof,
-                    left: y * elms.Xkoof,
-                    position: "absolute"
+                    top: item.x * elms.Ykoof,
+                    left: item.y * elms.Xkoof,
+                    position: "absolute",
+                    opacity: opacity
                 });
 
-                console.log(imgUrl);
+                console.log(item.imgUrl);
 
                 var canvas = $('#canvas');
                 img.appendTo(canvas);
@@ -78,7 +88,9 @@ define([],
             function jsonToMap(json) {
                 var count = 1;
                 $.each(json, function (item) {
-                    debugger;
+                    var product = json[item];
+                    AddPoint(product);
+                    /*debugger;
                     var order = item + 1;
                     var circle =
                         $('<div id="circle_' + order + '">' + order + '</div>');
@@ -87,8 +99,8 @@ define([],
                     var imgWidth = 606;
                     Xkoof = 6.06;
                     Ykoof = 3.76;
-                    $('#circle_' + count).css({top: json[item].x * Ykoof, left: json[item].y * Xkoof });
-                    count++;
+                    $('#circle_' + count).css({top: product.x * Ykoof, left: product.y * Xkoof });
+                    count++;*/
                 });
                 $('[id^=circle_]').show(700);
 
@@ -124,14 +136,15 @@ define([],
             }
 
             var init = function (scope) {
-                /*jsonToMap(JSON);*/
                 globalsocket.list();
                 console.log(scope);
             }
 
             return {
                 Init: init,
+                TogglePoint: TogglePoint,
                 AddPoint: AddPoint,
+                DeletePoint: DeletePoint,
                 JsonToMap: jsonToMap
             }
         };

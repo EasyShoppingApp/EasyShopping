@@ -5,7 +5,7 @@ define([], function(){
 	}
 
 	var Image = function(){
-		var AddToBody = function(text, index, callback){
+		var getImgUrl = function(text, index, callback){
 			console.log(elms.searchUrl + text);
 
 			$.ajax({
@@ -15,14 +15,14 @@ define([], function(){
 					var idx = index || 0;
 					var imgUrl = dataWeGotViaJsonp.responseData.results[idx].url;
 					if (callback != undefined){
-						callback(imgUrl);
+						callback({name: text, imgUrl: imgUrl});
 					}
 				}	
 			});
 		}
 
 		return {
-			AddToBody: AddToBody
+            getImgUrl: getImgUrl
 		}
 	}
 

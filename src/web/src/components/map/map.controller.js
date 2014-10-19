@@ -5,16 +5,16 @@ angular.module('shoptrip')
 
 		$scope.test = 123;
 		require(['map'], function(map){
-            $scope.$on('delete', function (event, args) {
-                debugger;
+            $scope.$on('delete', function (event, product) {
+                map.DeletePoint(product)
             });
 
-            $scope.$on('add', function (event, args) {
-                debugger;
+            $scope.$on('add', function (event, product) {
+                map.AddPoint(product);
             });
 
             $scope.$on('toggle', function (event, args) {
-                debugger;
+                map.TogglePoint(args);
             });
 
             $scope.$on('list', function (event, args) {

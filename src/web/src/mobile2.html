@@ -5,11 +5,9 @@
   <title>ShopTrip</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
-  <!-- <link rel="stylesheet" href="app/main/vendor.css"> -->
-  <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-
+  <link rel="stylesheet" href="app/main/vendor.css">
   <link rel="stylesheet" href="app/main/main.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
   <script src="bower_components/modernizr/modernizr.js"></script>
 </head>
 <body>
@@ -18,11 +16,8 @@
     <header>
       <div class="logo"></div>
     </header>
-      <div class="main-wrapper clearfix">
-    <div class="col-xs-6" ng-include="'components/map/index.html'"></div>
-    <div class="col-xs-6" ng-include="'components/checklist/index.html'"></div>
-      </div>
-
+    <div class="col-xs-6 hidden" ng-include="'components/map/index.html'"></div>
+    <div class="col-xs-12" ng-include="'components/checklist/index.html'"></div>
   </div>
 
   <script src="bower_components/jquery/dist/jquery.js"></script>

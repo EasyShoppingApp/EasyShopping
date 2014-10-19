@@ -68,25 +68,23 @@ angular.module('shoptrip').controller('CheckListCtrl', ['$scope', 'require', fun
         }
     };
 
-    var callback = function (imgUrl) {
-        require(["map"], function (module) {
+    var addCallback = function (item) {
+        globalsocket.add({productName: item.name, done: false, imgUrl: item.imgUrl});
+        /*require(["map"], function (module) {
             module.AddPoint(
                 Math.floor(Math.random() * 90),
                 Math.floor(Math.random() * 90),
-                imgUrl);
-        });
+                item.imgUrl);
+        });*/
     }
 
     $scope.addItem = function () {
         if ($scope.formItemText) {
-            globalsocket.add({productName: $scope.formItemText, done: false});
-
-            /*var textToSearch = $scope.formItemText;
-
+            var textToSearch = $scope.formItemText;
             require(["imageApi"], function (imageApi) {
-                imageApi.AddToBody(textToSearch, 0, callback);
-            });*/
-
+                imageApi.getImgUrl(textToSearch, 0, addCallback);
+            });
+            //globalsocket.add({productName: item.name, done: false, imgUrl: item.imgUrl});
             $scope.formItemText = '';
         }
         else {
