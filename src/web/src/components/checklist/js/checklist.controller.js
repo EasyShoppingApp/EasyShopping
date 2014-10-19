@@ -17,21 +17,36 @@ angular.module('shoptrip').controller('CheckListCtrl', ['$scope', 'require', fun
     // console.log(require);
 
     $scope.$on('delete', function (event, args) {
-        debugger;
+        angular.forEach($scope.checkList,function(item) {
+            if (item._id.$oid === args._id.$oid) {
+                $scope.checkList.splice($scope.checkList.indexOf(item), 1);
+                $scope.$apply();
+            }
+        });
     });
     $scope.$on('add', function (event, args) {
-        debugger;
+        $scope.checkList.push(args);
+        $scope.$apply();
     });
     $scope.$on('toggle', function (event, args) {
-        debugger;
+        angular.forEach($scope.checkList,function(item) {
+            if (item._id.$oid === args._id.$oid) {
+                item.done = args.done;
+                $scope.$apply();
+            }
+        });
     });
     $scope.$on('list', function (event, args) {
-        debugger;
+        $scope.checkList.splice(0, $scope.checkList.length);
+        angular.forEach(args,function(item) {
+            $scope.checkList.push(item);
+        });
+        $scope.$apply();
     });
 
     $scope.checkList = [
-        {text: 'Cucumber', done: false},
-        {text: 'Beer', done: false}
+        {productName: 'Cucumber', done: false},
+        {productName: 'Beer', done: false}
     ];
 
     $scope.getTotalCheckList = function () {
@@ -64,13 +79,13 @@ angular.module('shoptrip').controller('CheckListCtrl', ['$scope', 'require', fun
 
     $scope.addItem = function () {
         if ($scope.formItemText) {
-            $scope.checkList.push({text: $scope.formItemText, done: false});
+            globalsocket.add({productName: $scope.formItemText, done: false});
 
-            var textToSearch = $scope.formItemText;
+            /*var textToSearch = $scope.formItemText;
 
             require(["imageApi"], function (imageApi) {
                 imageApi.AddToBody(textToSearch, 0, callback);
-            });
+            });*/
 
             $scope.formItemText = '';
         }
@@ -80,7 +95,8 @@ angular.module('shoptrip').controller('CheckListCtrl', ['$scope', 'require', fun
     };
 
     $scope.removeItem = function (index) {
-        if (index === 'underfined') {
+        globalsocket.delete($scope.checkList[index]);
+        /*if (index === 'undefined') {
             $scope.checkList = _.filter($scope.checkList, function (item) {
                 return !item.done;
             });
@@ -88,11 +104,12 @@ angular.module('shoptrip').controller('CheckListCtrl', ['$scope', 'require', fun
 
         else {
             $scope.checkList.splice(index, 1);
-        }
+        }*/
     };
 
     $scope.toggleItem = function (index) {
-        $scope.checkList[index].done = !$scope.checkList[index].done;
+        var item = $scope.checkList[index];
+        globalsocket.toggle(item);
     };
 
 }]);

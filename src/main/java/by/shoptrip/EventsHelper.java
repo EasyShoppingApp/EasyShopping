@@ -45,6 +45,7 @@ public class EventsHelper {
     }
 
     public static void toggle(JSONObject object) throws IOException, EncodeException, JSONException {
+        object.put("done", !object.getBoolean("done"));
         JSONObject modifiedObject = dbManager.toggle(object);
         JSONObject response = new JSONObject();
         response.put("action", "toggle");

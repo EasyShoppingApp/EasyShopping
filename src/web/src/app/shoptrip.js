@@ -2,6 +2,18 @@
 
 var shoptripApp = angular.module('shoptrip', []);
 
+shoptripApp.filter('getById', function() {
+    return function(input, id) {
+        var i=0, len=input.length;
+        for (; i<len; i++) {
+            if (+input[i]._id.$oid == +id) {
+                return input[i];
+            }
+        }
+        return null;
+    }
+});
+
 shoptripApp.run(['$rootScope', function($rootScope){
     $rootScope.createWS = function() {
         var socket = new WebSocket("ws://localhost:8080/app/events/");
@@ -15,21 +27,7 @@ shoptripApp.run(['$rootScope', function($rootScope){
         };
         socket.onmessage = function (event) {
             var response = JSON.parse(event.data);
-            switch (response.action) {
-                case 'list':
-                    debugger;
-                    $rootScope.$broadcast('list', response.object);
-                    break;
-                case 'delete':
-                    $rootScope.$broadcast('delete', response.object);
-                    break;
-                case 'add':
-                    $rootScope.$broadcast('add', response.object);
-                    break;
-                case 'toggle':
-                    $rootScope.$broadcast('toggle', response.object);
-                    break;
-            }
+            $rootScope.$broadcast(response.action, response.object);
             console.log("Пришло сообщение с содержанием:", event.data);
         };
 
@@ -46,7 +44,7 @@ shoptripApp.run(['$rootScope', function($rootScope){
         };
 
         socket.toggle = function (item) {
-            socket.send(JSON.stringify({action: "toggles", object: item}));
+            socket.send(JSON.stringify({action: "toggle", object: item}));
         };
 
         globalsocket = socket;
