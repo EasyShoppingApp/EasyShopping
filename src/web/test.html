@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+      var socket = new WebSocket("ws://localhost:8080/app/events/");
+      socket.onopen = function () {
+        console.log("Соединение открылось");
+      };
+      socket.onclose = function () {
+        console.log ("Соединение закрылось");
+        socket = new WebSocket("ws://localhost:8080/app/events/");
+      };
+      socket.onmessage = function (event) {
+        var response = JSON.parse(event.data);
+        debugger;
+        console.log ("Пришло сообщение с содержанием:", event.data);
+      };
+      var queryLists = function() {
+          debugger;
+          socket.send(JSON.stringify({action : "list"}));
+      }
+    </script>
+</head>
+<body>
+  <a onclick="queryLists()">test</a>
+</body>
+</html>
